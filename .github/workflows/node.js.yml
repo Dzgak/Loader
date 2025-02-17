@@ -27,7 +27,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-
     # 4. Запустить generator
     - name: Run script generator
       run: npm run generate
+
+    # 5. Добавить изменения в Git
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add raw/registry.lua
+        git commit -m "Update registry.lua with new scripts"
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

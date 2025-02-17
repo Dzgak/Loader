@@ -1,3 +1,0 @@
--- PlaceID's: 324234, 324234
--- GameID: 987322365
--- Rest of your script code...
