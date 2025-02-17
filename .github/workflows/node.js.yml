@@ -13,31 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout репозиторий
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      # 1. Checkout репозиторий
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    # 2. Установить Node.js
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
+      # 2. Установить Node.js
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
 
-    # 3. Установить зависимости
-    - name: Install dependencies
-      run: npm install
+      # 3. Установить зависимости
+      - name: Install dependencies
+        run: npm install
 
-    # 4. Запустить generator
-    - name: Run script generator
-      run: npm run generate
+      # 4. Запустить generator
+      - name: Run script generator
+        run: npm run generate
 
-    # 5. Добавить изменения в Git
-    - name: Commit and push changes
-      run: |
-        git config --global user.name "Dzgak"
-        git config --global user.email "dev.dzgak@gmail.com"
-        git add raw/registry.lua
-        git commit -m "Update registry.lua with new scripts"
-        git push origin main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 5. Добавить изменения в Git
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Dzgak"
+          git config --global user.email "dev.dzgak@gmail.com"
+          git add raw/registry.lua
+          git diff-index --quiet HEAD || git commit -m "Update registry.lua with new scripts"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
