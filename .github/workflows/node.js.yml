@@ -1,0 +1,32 @@
+name: Generate Script Registry
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  generate-registry:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout репозиторий
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Установить Node.js
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+
+    # 3. Установить зависимости
+    - name: Install dependencies
+      run: npm ci
+
+    # 4. Запустить generator
+    - name: Run script generator
+      run: npm run generate
