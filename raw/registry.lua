@@ -1,7 +1,6 @@
 return {
     scripts = { {
-    placeIds = { NaN },
-    gameId = 98765,
+    placeIds = { 4483381587 },
     path = 'scripts/example.lua',
     name = 'example'
 } }
