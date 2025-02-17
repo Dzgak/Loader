@@ -1,4 +1,4 @@
-local config = loadstring(game:HttpGet("https://raw.githubusercontent.com/your-username/your-repo/main/raw/config.lua"))()
+local config = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzgak/Loader/main/raw/config.lua"))()
 
 local function createEnv()
     local env = {

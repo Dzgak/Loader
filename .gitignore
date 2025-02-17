@@ -30,4 +30,4 @@ yarn-error.log*
 .env.*.local
 
 # Project specific
-# raw/registry.lua
+raw/registry.lua
