@@ -1,39 +1,39 @@
 local config = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzgak/Loader/main/raw/config.lua"))()
 
-local function createEnv()
-    local env = {
-        loadgit = function(path)
-            if path:sub(1, 2) == "@/" then
-                return loadstring(game:HttpGet(config.github.raw_base .. "/libs/" .. path:sub(3)))()
-            end
-            return loadstring(game:HttpGet(path))()
-        end,
-    }
-    
-    local protectedEnv = setmetatable(env, {
-        __index = getfenv(0),
-        __metatable = "Protected",
-    })
-    
-    return protectedEnv
-end
-
 local function loadScript(scriptInfo)
     local success, content = pcall(function()
         return game:HttpGet(config.github.raw_base .. "/" .. scriptInfo.path)
     end)
     
-    if success then
-        local env = createEnv()
-        local func = loadstring(content)
-        setfenv(func, env)
-        return pcall(func)
+    if success and content then
+        local func, err = loadstring(content)
+        if func then
+            local execSuccess, execErr = pcall(func)
+            if not execSuccess then
+                warn("Error executing script:", execErr)
+            end
+            return execSuccess, execErr
+        else
+            warn("Failed to compile script:", err)
+            warn(config.github.raw_base .. "/" .. scriptInfo.path)
+            return false, "Compilation error"
+        end
+    else
+        warn("Failed to load script:", scriptInfo.path)
+        return false, "HTTP error"
     end
-    return false, "Failed to load script: " .. scriptInfo.path
 end
 
 local function init()
-    local registry = loadstring(game:HttpGet(config.github.raw_base .. "/registry.lua"))()
+    local success, registry = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzgak/Loader/main/raw/registry.lua"))()
+    end)
+    
+    if not success or type(registry) ~= "table" or not registry.scripts then
+        warn("Failed to load script registry")
+        return
+    end
+    
     local placeId = game.PlaceId
     local gameId = game.GameId
     
