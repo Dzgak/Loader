@@ -1,0 +1,3 @@
+-- PlaceID's: 1234567, 7654321
+-- GameID: 98765
+-- Rest of your script code...
