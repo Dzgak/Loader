@@ -12,7 +12,7 @@ local module = {
 }
 
 -- Services
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/Script/refs/heads/main/src/libs/UI.luau"))()
+local Library = loadstring(game:HttpGet("https://github.com/Dzgak/Loader/raw/refs/heads/main/raw/utils/UI"))()
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
